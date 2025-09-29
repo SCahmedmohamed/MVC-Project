@@ -27,5 +27,6 @@ namespace DAL.Data.DBContexts
         //}
 
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Employee> Employees { get; set; }
     }
 }

@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace DAL.Models
 {
-    public class Department : BaseEntity
+    public class Employee : BaseEntity
     {
-        
-        public DateTime CreatedDate { get; set; }
+
+      
+        public string Address { get; set; }
+        public int Salary { get; set; }
+
+
     }
 }

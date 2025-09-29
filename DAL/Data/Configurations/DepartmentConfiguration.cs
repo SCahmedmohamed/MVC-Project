@@ -13,8 +13,8 @@ namespace DAL.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Department> builder)
         {
-            builder.HasKey(d => d.id);
-            builder.Property(d=>d.id).UseIdentityColumn(10,10);
+            builder.HasKey(d => d.Id);
+            builder.Property(d=>d.Id).UseIdentityColumn(10,10);
 
 
         }

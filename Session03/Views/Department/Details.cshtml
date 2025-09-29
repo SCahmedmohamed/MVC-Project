@@ -1,0 +1,38 @@
+﻿@model Department
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details Page</h1>
+<br />
+<br />
+
+<div>
+    <h4>Department</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Code
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.Code
+        </dd>
+        <dt class = "col-sm-2">
+            Name
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.Name
+        </dd>
+        <dt class = "col-sm-2">
+            Created Date
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.CreatedDate
+        </dd>
+    </dl>
+
+    <div>
+        <a asp-action="Index" class="m-1 btn btn-primary">Back to List</a>
+        <a asp-action="Edit" class="m-1 btn btn-success" asp-route-id="@Model.Id">Edit</a> 
+        <a asp-action="Delete" class="m-1 btn btn-danger" asp-route-id="@Model.Id">Delete</a>
+    </div>

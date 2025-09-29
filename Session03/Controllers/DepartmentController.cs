@@ -29,7 +29,7 @@ namespace PL.Controllers
         [HttpPost]
         public IActionResult Create(CreateDepartmentDTO model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var department = new Department()
                 {
@@ -38,13 +38,65 @@ namespace PL.Controllers
                     CreatedDate = model.CreatedDate
                 };
                 var Count = _departmentRepository.Add(department);
-                if(Count > 0)
+                if (Count > 0)
                 {
                     return RedirectToAction("Index");
                 }
             }
             return View();
-        } 
+        }
 
+        [HttpGet]
+        public IActionResult Details(int? Id)
+        {
+            if (Id is null) return BadRequest("Invaild Id");
+            var department = _departmentRepository.Get(Id.Value);
+            if (department is null) return NotFound($"Department With Id : {Id} Is Not Found !");
+            return View(department);
+        }
+
+        [HttpGet]
+        public IActionResult Update(int? Id)
+        {
+            if (Id is null) return BadRequest("Invaild Id");
+            var _department = _departmentRepository.Get(Id.Value);
+            if (_department is null) return NotFound($"Department With Id : {Id} Is Not Found !");
+            return View(_department);
+
+        }
+        [HttpPost]
+        public IActionResult Update(Department department)
+        {
+            if (ModelState.IsValid)
+            {
+                int vaild = _departmentRepository.Update(department);
+                if (vaild > 0)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            return View(department);
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+
+            if (id is null) return BadRequest("Invaild Id");
+            var department = _departmentRepository.Get(id.Value);
+            if (department is null) return NotFound($"Department With Id : {id} Is Not Found !");
+            return View(department);
+
+        }
+        [HttpPost]
+        public IActionResult Delete(Department department)
+        {
+            int vaild = _departmentRepository.Delete(department);
+            if (vaild > 0)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(department);
+        }
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Repositories
 {
-    public class DepartmentRepository : IDepartmentRepository
+    public class DepartmentRepository : IDepartmentRepository 
     {
         private readonly CompanyDbContext _dbContext;
         public DepartmentRepository(CompanyDbContext companyDbContext)
