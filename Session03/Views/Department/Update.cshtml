@@ -1,4 +1,4 @@
-﻿@model Department
+﻿@model CreateDepartmentDTO
 @{
     ViewData["Title"] = "Update";
 }
@@ -8,21 +8,8 @@
 <br />
 
 <form asp-action="Update">
-    <div class="my-3">
-        <label asp-for="Code" class="form-label"></label>
-        <input asp-for="Code" class="form-control" />
-        <span asp-validation-for="Code" class="text-danger"></span>
-    </div>
-    <div class="my-3">
-        <label asp-for="Name" class="form-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <div class="my-3">
-        <label asp-for="CreatedDate" class="form-label"></label>
-        <input asp-for="CreatedDate" class="form-control" />
-        <span asp-validation-for="CreatedDate" class="text-danger"></span>
-    </div>
+    
+    <partial name="Department_Partial_View/_CreateUpdate_PartialView" model="Model" />
 
     <div >
         <input type ="submit" value="Save" class="btn-primary"/>

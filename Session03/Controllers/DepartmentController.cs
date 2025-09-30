@@ -31,7 +31,7 @@ namespace PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                var department = new Department()
+                Department department = new Department()
                 {
                     Code = model.Code,
                     Name = model.Name,
@@ -60,22 +60,35 @@ namespace PL.Controllers
         {
             if (Id is null) return BadRequest("Invaild Id");
             var _department = _departmentRepository.Get(Id.Value);
-            if (_department is null) return NotFound($"Department With Id : {Id} Is Not Found !");
-            return View(_department);
+            CreateDepartmentDTO model = new CreateDepartmentDTO()
+            {
+                Code = _department.Code,
+                Name = _department.Name,
+                CreatedDate = _department.CreatedDate
+            };
+            if (model is null) return NotFound($"Department With Id : {Id} Is Not Found !");
+            return View(model);
 
         }
         [HttpPost]
-        public IActionResult Update(Department department)
+        public IActionResult Update(int id, CreateDepartmentDTO model)
         {
             if (ModelState.IsValid)
             {
+                Department department = new Department()
+                {
+                    Id = id,
+                    Code = model.Code,
+                    Name = model.Name,
+                    CreatedDate = model.CreatedDate
+                };
                 int vaild = _departmentRepository.Update(department);
                 if (vaild > 0)
                 {
                     return RedirectToAction("Index");
                 }
             }
-            return View(department);
+            return View(model);
         }
 
         [HttpGet]
@@ -84,19 +97,32 @@ namespace PL.Controllers
 
             if (id is null) return BadRequest("Invaild Id");
             var department = _departmentRepository.Get(id.Value);
-            if (department is null) return NotFound($"Department With Id : {id} Is Not Found !");
-            return View(department);
+            CreateDepartmentDTO model = new CreateDepartmentDTO()
+            {
+                Code = department.Code,
+                Name = department.Name,
+                CreatedDate = department.CreatedDate
+            };
+            if (model is null) return NotFound($"Department With Id : {id} Is Not Found !");
+            return View(model);
 
         }
         [HttpPost]
-        public IActionResult Delete(Department department)
+        public IActionResult Delete(int id,CreateDepartmentDTO model)
         {
+            Department department = new Department()
+            {
+                Id = id,
+                Code = model.Code,
+                Name = model.Name,
+                CreatedDate = model.CreatedDate
+            };
             int vaild = _departmentRepository.Delete(department);
             if (vaild > 0)
             {
                 return RedirectToAction("Index");
             }
-            return View(department);
+            return View(model);
         }
     }
 }

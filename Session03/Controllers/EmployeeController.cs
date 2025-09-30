@@ -57,16 +57,31 @@ namespace PL.Controllers
         {
             if (Id is null) return BadRequest("Invaild Id");
             var employee = _employeeRepository.Get(Id.Value);
-            if (employee is null) return NotFound($"Employee With Id : {Id} Is Not Found !");
-            return View(employee);
+            CreateEmployeeDTO model = new CreateEmployeeDTO()
+            {
+                Code = employee.Code,
+                Name = employee.Name,
+                Address = employee.Address,
+                Salary = employee.Salary
+            };
+            if (model is null) return NotFound($"Employee With Id : {Id} Is Not Found !");
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult Update(Employee model)
+        public IActionResult Update(int Id ,Employee model)
         {
             if (ModelState.IsValid)
             {
-                var Count = _employeeRepository.Update(model);
+                var employee = new Employee()
+                {
+                    Id = Id,
+                    Code = model.Code,
+                    Name = model.Name,
+                    Address = model.Address,
+                    Salary = model.Salary
+                };
+                var Count = _employeeRepository.Update(employee);
                 if (Count > 0)
                 {
                     return RedirectToAction("Index");
@@ -81,15 +96,30 @@ namespace PL.Controllers
         {
             if (Id is null) return BadRequest("Invaild Id");
             var employee = _employeeRepository.Get(Id.Value);
-            if (employee is null) return NotFound($"Employee With Id : {Id} Is Not Found !");
-            return View(employee);
+            CreateEmployeeDTO model = new CreateEmployeeDTO()
+            {
+                Code = employee.Code,
+                Name = employee.Name,
+                Address = employee.Address,
+                Salary = employee.Salary
+            };
+            if (model is null) return NotFound($"Employee With Id : {Id} Is Not Found !");
+            return View(model);
         }
 
         [HttpPost]
 
-        public IActionResult Delete(Employee model)
+        public IActionResult Delete(int Id, Employee model)
         {
-            var Count = _employeeRepository.Delete(model);
+            var employee = new Employee()
+            {
+                Id = Id,
+                Code = model.Code,
+                Name = model.Name,
+                Address = model.Address,
+                Salary = model.Salary
+            };
+            var Count = _employeeRepository.Delete(employee);
             if (Count > 0)
             {
                 return RedirectToAction("Index");
